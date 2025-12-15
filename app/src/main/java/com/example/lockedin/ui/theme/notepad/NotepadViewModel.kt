@@ -1,7 +1,7 @@
 package com.example.lockedin.ui.theme.notepad
 
 import androidx.lifecycle.ViewModel
-import com.example.lockedin.States.NotepadUiState
+import com.example.lockedin.states.NotepadUiState
 import com.example.lockedin.model.NotepadModel.Note
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

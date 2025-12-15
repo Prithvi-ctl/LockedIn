@@ -1,4 +1,4 @@
-package com.example.lockedin.States
+package com.example.lockedin.states
 
 import com.example.lockedin.model.NotepadModel.Note
 
