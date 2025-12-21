@@ -7,6 +7,7 @@ data class alarmsUiState(
     val AlarmList: List<alarmModel> = emptyList(),
     val hour:Int = 0,
     val minutes:Int =0,
+    val ampm:String = "AM"
 
 
     )

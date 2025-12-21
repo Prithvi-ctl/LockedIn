@@ -12,6 +12,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
@@ -92,10 +94,12 @@ fun AlarmScreen(modifier :Modifier = Modifier) {
 
             Dialogue (uiState.hour,
                 uiState.minutes,
+                uiState.ampm,
                 onDismiss = {showDialog = false
                         viewModel.addAlarms()},
                 onHourChange = {viewModel.setHour(it)},
-                onMinuteChange = {viewModel.setMinutes(it)}
+                onMinuteChange = {viewModel.setMinutes(it)},
+                onampmChange = {viewModel.setAmPm(it)}
                         )
         }
     }
@@ -142,9 +146,11 @@ fun AppBar(){
 @Composable
 fun Dialogue(hour:Int,
              minutes:Int,
+             ampm:String,
              onDismiss: () -> Unit,
              onHourChange :(Int) -> Unit,
-             onMinuteChange :(Int) -> Unit) {
+             onMinuteChange :(Int) -> Unit,
+             onampmChange:(String)->Unit){
 
 
         AlertDialog(
@@ -156,7 +162,9 @@ fun Dialogue(hour:Int,
                 NumberPicker(hour,0..12, onValueChange = onHourChange)
 
                 NumberPicker(minutes,range=0..59, onValueChange = onMinuteChange)
-            }},
+                ampmPicker(value = ampm, onValueChange = onampmChange)
+            }
+                   },
             confirmButton = {
                 Button(onClick = onDismiss) {
                     Text("OK")
@@ -166,6 +174,38 @@ fun Dialogue(hour:Int,
 
 }
 
+//am and pm picker
+@Composable
+fun ampmPicker(value:String,
+    onValueChange:(String) -> Unit
+){var expanded by remember {mutableStateOf(false)}
+    Box(){
+        TextButton(onClick = {expanded = true}){
+            Text(text = value,
+            fontSize = 20.sp)
+        }
+        DropdownMenu(
+            expanded= expanded,
+            onDismissRequest = {expanded = false}
+        ) {
+            DropdownMenuItem(
+                text = {Text (text = "AM") } ,
+                onClick = {
+                    onValueChange("AM")
+                    expanded = false
+                }
+            )
+            DropdownMenuItem(
+                text = {Text (text = "PM") } ,
+                onClick = {
+                    onValueChange("PM")
+                    expanded = false
+                }
+            )
+        }
+
+    }
+}
 @Composable
 fun NumberPicker(
     value :Int,
@@ -173,7 +213,6 @@ fun NumberPicker(
     onValueChange:(Int) ->Unit
 ){
     var expanded by remember {mutableStateOf(false)}
-
     Box{
         TextButton(onClick = {expanded = true}){
             Text(text = value.toString().padStart(2,'0'),
@@ -197,14 +236,26 @@ fun NumberPicker(
     }
 }
 
-@Composable
-fun simpleAlarmShowcase(alarm: alarmModel){
-    Card(elevation = CardDefaults.cardElevation(),
-        shape = RoundedCornerShape(10.dp)
-    ){
-        Text(alarm.Time)
-    }
-}
+    @Composable
+    fun simpleAlarmShowcase(alarm: alarmModel){
+
+            Card(modifier = Modifier
+                .fillMaxWidth()
+                .height(120.dp),
+                elevation = CardDefaults.cardElevation(),
+                shape = RoundedCornerShape(10.dp),
+
+            ) {
+                Box(modifier = Modifier.fillMaxSize(),
+                    contentAlignment = Alignment.Center){
+                Text(alarm.Time,
+                    fontSize = 32.sp,
+
+                    )
+            }
+            }
+        }
+
 
 
 

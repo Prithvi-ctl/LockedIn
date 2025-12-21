@@ -28,7 +28,7 @@ class Clock {
             Text(
                 text = "${uiState.hour}:${uiState.minute.toString().padStart(2,'0')}" +
                         "${uiState.amPm}",
-                fontSize = 32.sp
+                fontSize = 64.sp
 
             )
         }

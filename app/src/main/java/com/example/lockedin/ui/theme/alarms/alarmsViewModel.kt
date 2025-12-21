@@ -23,11 +23,14 @@ class alarmsViewModel : ViewModel(){
     fun setMinutes(value:Int){
         _uiState.update{it.copy(minutes = value)}
     }
+    fun setAmPm(value:String){
+        _uiState.update{it.copy(ampm = value)}
+    }
 
     fun addAlarms(){
         _uiState.update{currentState ->
             val newId = (currentState.AlarmList.maxOfOrNull {it.id} ?: 0)+1
-            val newAlarm = alarmModel(id= newId,Time = "${currentState.hour}:${currentState.minutes}" )
+            val newAlarm = alarmModel(id= newId,Time = "${currentState.hour}:${currentState.minutes} ${currentState.ampm}" )
             currentState.copy(AlarmList = currentState.AlarmList + newAlarm)
         }
     }
