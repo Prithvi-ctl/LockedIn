@@ -49,6 +49,7 @@ fun NotepadSurface() {
 
         LazyColumn {
             items(uiState.NoteList) { note ->
+
                 Notes(
                     note = note,
                     onTextChange ={newText -> viewModel.updateNotes(note.id,newText)},
@@ -63,7 +64,7 @@ fun NotesIcon(modifier:Modifier = Modifier,
               onClick:() -> Unit) {
 
 
-    Card(
+        Card(
         elevation = CardDefaults.cardElevation(),
         shape = RoundedCornerShape(dimensionResource(R.dimen.card_corner_radius)),
         modifier =

@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import com.example.lockedin.ui.theme.LockedInTheme
+import com.example.lockedin.ui.theme.alarms.AlarmScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,10 +21,7 @@ class MainActivity : ComponentActivity() {
         setContent {
             LockedInTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    AlarmScreen(modifier = Modifier.padding(innerPadding))
                 }
             }
         }
